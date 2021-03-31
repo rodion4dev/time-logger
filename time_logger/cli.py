@@ -1,13 +1,13 @@
 """Набор команд для консольного приложения."""
 import typer
 
-from time_logger import service, __name__ as project_name
+from time_logger import service, __script_name__ as script
 
 application = typer.Typer(add_completion=False)
 
 
 def run():
-    application(prog_name=project_name)
+    application(prog_name=script)
 
 
 @application.command(short_help="Создание записи о начале работы")

@@ -1,5 +1,5 @@
 """Приложение для подсчёта затраченного на задачи времени."""
-__version__ = (0, 2, 1)
+__version__ = (0, 2, 2)
 __description__ = __doc__
 __url__ = "https://github.com/rodion4dev/time-logger"
 __author__ = "Rodion"
