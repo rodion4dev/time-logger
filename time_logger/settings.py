@@ -4,7 +4,7 @@ from pathlib import Path
 
 import typer
 
-from time_logger import __name__ as application
+from time_logger import __project_name__ as application
 
 _environment_directory = os.getenv(application.upper() + "_DIRECTORY")
 if _environment_directory:
