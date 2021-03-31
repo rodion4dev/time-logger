@@ -14,3 +14,4 @@ python -m time_logger --help
 * time_logger.time.extract_time
 * time_logger.time.format_time
 * time_logger.time.calculate_interval
+* time_logger.time.convert_minutes

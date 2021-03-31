@@ -2,7 +2,12 @@
 from typing import TYPE_CHECKING
 
 from time_logger.crud import read_data, update_data
-from time_logger.time import calculate_interval, convert_minutes, extract_time, format_time
+from time_logger.time import (
+    calculate_interval,
+    convert_minutes,
+    extract_time,
+    format_time,
+)
 
 if TYPE_CHECKING:
     from typing import Optional
