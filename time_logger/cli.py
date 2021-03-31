@@ -3,14 +3,14 @@ import typer
 
 from time_logger import service, __script_name__ as script
 
-application = typer.Typer(add_completion=False)
+_application = typer.Typer(add_completion=False)
 
 
 def run():
-    application(prog_name=script)
+    _application(prog_name=script)
 
 
-@application.command(short_help="Создание записи о начале работы")
+@_application.command(short_help="Создание записи о начале работы")
 def log_start(task: str, start_time: str = None):
     try:
         service.log_start(task, start_time=start_time)
@@ -19,7 +19,7 @@ def log_start(task: str, start_time: str = None):
         raise typer.Exit(code=1)
 
 
-@application.command(short_help="Создание записи об окончании работы")
+@_application.command(short_help="Создание записи об окончании работы")
 def log_stop(task: str, stop_time: str = None):
     try:
         service.log_stop(task, stop_time=stop_time)
@@ -28,7 +28,7 @@ def log_stop(task: str, stop_time: str = None):
         raise typer.Exit(code=1)
 
 
-@application.command(short_help="Подсчёт затраченного времени на задачу")
+@_application.command(short_help="Подсчёт затраченного времени на задачу")
 def calculate_time(task: str):
     try:
         hours, minutes = service.calculate_time(task)
