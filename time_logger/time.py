@@ -26,4 +26,13 @@ def format_time(time_object: "time") -> str:
 
 def calculate_interval(time_1: "time", time_2: "time") -> "Tuple[int, int]":
     """Подсчёт интервала между двумя объектами времени."""
-    return abs(time_2.hour - time_1.hour), abs(time_2.minute - time_1.minute)
+    hours = abs(time_2.hour - time_1.hour)
+    minutes = abs(time_2.minute - time_1.minute)
+    return hours, minutes
+
+
+def convert_minutes(hours: int, minutes: int) -> "Tuple[int, int]":
+    """Конвертация переданных минут в значение указанных часов."""
+    remainder = minutes % 60
+    hours, minutes = int((minutes - remainder) / 60) + hours, remainder
+    return hours, minutes

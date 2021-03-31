@@ -1,13 +1,18 @@
 """Сервисный слой приложения."""
+from typing import TYPE_CHECKING
+
 from time_logger.crud import read_data, update_data
-from time_logger.time import calculate_interval, extract_time, format_time
+from time_logger.time import calculate_interval, convert_minutes, extract_time, format_time
+
+if TYPE_CHECKING:
+    from typing import Optional
 
 
 class ServiceError(Exception):
     """Общая ошибка для сервисного слоя."""
 
 
-def log_start(task: str, start_time: str = None):
+def log_start(task: str, start_time: "Optional[str]"):
     """Запись о начале работы над задачей."""
     data: dict = read_data()
     if task not in data:
@@ -15,7 +20,7 @@ def log_start(task: str, start_time: str = None):
 
     is_started = data[task]["is_started"] and isinstance(data[task]["is_started"], bool)
     if is_started:
-        raise ServiceError(f"Время для задачи {task} уже записано.")
+        raise ServiceError(f"Время начала работы над задачей {task} уже записано.")
 
     start_time = format_time(extract_time(start_time))
     data[task]["records"].append({"start_time": start_time, "stop_time": None})
@@ -24,7 +29,7 @@ def log_start(task: str, start_time: str = None):
     update_data(data)
 
 
-def log_stop(task: str, stop_time: str = None):
+def log_stop(task: str, stop_time: "Optional[str]"):
     """Запись об окончании работы над задачей."""
     data: dict = read_data()
     if not (task in data and data[task]["is_started"]):
@@ -35,6 +40,7 @@ def log_stop(task: str, stop_time: str = None):
 
     stop_time = format_time(extract_time(stop_time))
     data[task]["records"][-1].update({"stop_time": stop_time})
+    data[task]["is_started"] = False
 
     update_data(data)
 
@@ -56,4 +62,6 @@ def calculate_time(task: str):
         )
         hours += calculated_hours
         minutes += calculated_minutes
+
+    hours, minutes = convert_minutes(hours, minutes)
     return hours, minutes
