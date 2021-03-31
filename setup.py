@@ -8,7 +8,7 @@ from time_logger import (
     __url__ as url,
     __author__ as author,
     __author_email__ as author_email,
-    __script_name__ as script,
+    __project_name__ as project_name,
     __cli_handler__ as cli_handler,
 )
 
@@ -26,6 +26,6 @@ setup(
         "typer==0.3.2",
     ],
     entry_points={
-        "console_scripts": [f"{script}={cli_handler}"],
+        "console_scripts": [f"{project_name}={cli_handler}"],
     },
 )

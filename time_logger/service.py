@@ -1,7 +1,10 @@
 """Сервисный слой приложения."""
+import json
+from shutil import rmtree
 from typing import TYPE_CHECKING
 
 from time_logger.crud import read_data, update_data
+from time_logger.settings import APPLICATION_DATA
 from time_logger.time import (
     calculate_interval,
     convert_minutes,
@@ -10,6 +13,7 @@ from time_logger.time import (
 )
 
 if TYPE_CHECKING:
+    from pathlib import Path
     from typing import Optional
 
 
@@ -70,3 +74,25 @@ def calculate_time(task: str):
 
     hours, minutes = convert_minutes(hours, minutes)
     return hours, minutes
+
+
+def import_database(database: "Path"):
+    """Импортирование указанной базы данных."""
+    with database.open(mode="r") as database_descriptor:
+        data = json.load(database_descriptor)
+
+    update_data(data)
+
+
+def remove_application_data():
+    """Удаление директории приложения."""
+    if not APPLICATION_DATA.exists():
+        raise ServiceError("Директория приложения не найдена.")
+
+    rmtree(APPLICATION_DATA)
+
+
+def check_application_directory():
+    """Проверка наличия директории приложения и создание в случае отсутствия."""
+    if not APPLICATION_DATA.exists():
+        APPLICATION_DATA.mkdir(mode=0o755)
