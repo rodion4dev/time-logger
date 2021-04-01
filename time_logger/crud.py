@@ -65,6 +65,6 @@ def update_data(data: dict):
 def backup_data(backup: "Path"):
     """Создание резервной копии данных по указанному пути."""
     with DATABASE.open(mode="r") as database_descriptor:
-        data = json.load(database_descriptor, indent=3)
+        data = json.load(database_descriptor)
     with backup.open(mode="w") as database_descriptor:
         json.dump(data, database_descriptor)
