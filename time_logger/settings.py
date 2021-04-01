@@ -13,3 +13,4 @@ else:
     APPLICATION_DATA = Path(typer.get_app_dir(application)).resolve()
 DATABASE = APPLICATION_DATA / "database.json"
 TIME_FORMAT = "%H:%M"
+BACKUP_FORMAT = "%Y-%m-%d-%H-%M-%S-%f-database-backup.json"
