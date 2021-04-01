@@ -6,7 +6,14 @@ from functools import wraps
 from shutil import rmtree
 from typing import TYPE_CHECKING
 
-from time_logger.crud import DatabaseDataError, backup_data, read_data, read_task, update_data, update_task
+from time_logger.crud import (
+    DatabaseDataError,
+    backup_data,
+    read_data,
+    read_task,
+    update_data,
+    update_task,
+)
 from time_logger.settings import APPLICATION_DATA, BACKUP_FORMAT
 from time_logger.time import (
     calculate_interval,
@@ -30,9 +37,10 @@ def _check_lock(function) -> "Callable":
         task = args[0]
         with suppress(DatabaseDataError):
             task_data = read_task(task)
-            if task_data["is_locked"]:
+            if task_data.get("is_locked"):
                 raise ServiceError("Задача заблокирована для измененй.")
         return function(*args, **kwargs)
+
     return wrap
 
 

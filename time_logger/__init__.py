@@ -1,5 +1,5 @@
 """Приложение для подсчёта затраченного на задачи времени."""
-__version__ = (0, 4, 1)
+__version__ = (0, 4, 2)
 __description__ = __doc__
 __author__ = "Rodion"
 __author_email__ = "public.rodion@icloud.com"
